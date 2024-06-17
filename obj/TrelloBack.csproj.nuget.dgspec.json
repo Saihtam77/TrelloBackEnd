@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ib\\Documents\\DEV\\TrelloBack\\TrelloBack.csproj": {}
+    "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\POEC-DotNET-Fil-Rouge-BackEnd\\TrelloBack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ib\\Documents\\DEV\\TrelloBack\\TrelloBack.csproj": {
+    "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\POEC-DotNET-Fil-Rouge-BackEnd\\TrelloBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ib\\Documents\\DEV\\TrelloBack\\TrelloBack.csproj",
+        "projectUniqueName": "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\POEC-DotNET-Fil-Rouge-BackEnd\\TrelloBack.csproj",
         "projectName": "TrelloBack",
-        "projectPath": "C:\\Users\\ib\\Documents\\DEV\\TrelloBack\\TrelloBack.csproj",
+        "projectPath": "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\POEC-DotNET-Fil-Rouge-BackEnd\\TrelloBack.csproj",
         "packagesPath": "C:\\Users\\ib\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ib\\Documents\\DEV\\TrelloBack\\obj\\",
+        "outputPath": "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\POEC-DotNET-Fil-Rouge-BackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ib\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -49,6 +49,10 @@
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.6, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[8.0.6, )"
             },
