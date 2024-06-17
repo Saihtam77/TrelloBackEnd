@@ -14,7 +14,7 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(builder =>
     {
-        builder.WithOrigins("http://localhost:4200, projetfilerouge.azurewebsites.net")
+        builder.WithOrigins("http://localhost:4200, https://projetfilerouge.azurewebsites.net")
             .AllowAnyHeader()
             .AllowAnyMethod();
     });
