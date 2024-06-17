@@ -10,15 +10,15 @@ builder.Services.AddDbContext<DatabaseContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
-// builder.Services.AddCors(options =>
-// {
-//     options.AddDefaultPolicy(builder =>
-//     {
-//         builder.WithOrigins("http://localhost:4200")
-//             .AllowAnyHeader()
-//             .AllowAnyMethod();
-//     });
-// });
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(builder =>
+    {
+        builder.WithOrigins("http://localhost:4200, projetfilerouge.azurewebsites.net")
+            .AllowAnyHeader()
+            .AllowAnyMethod();
+    });
+});
 
 
 var app = builder.Build();
@@ -41,6 +41,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Projets}/{action=GetProjets}");
 
 app.Run();
