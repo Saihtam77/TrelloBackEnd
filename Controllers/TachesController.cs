@@ -56,6 +56,27 @@ namespace TrelloBack.Controllers
 
         }
 
+        [HttpGet("Taches/GetTachesByListeId/{id?}")]
+        public IActionResult GetTachesByListeId(int id)
+        {
+            // Get taches from database by liste id
+            try
+            {
+                if (_db.Taches == null)
+                {
+                    return NotFound("No taches found");
+                }
+
+                var taches = _db.Taches.Where(t => t.ListeId == id);
+                return Json(taches);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
         [HttpPost("Taches")]
         public IActionResult CreateTache([FromBody] Tache tache)
         {

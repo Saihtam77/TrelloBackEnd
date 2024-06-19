@@ -57,6 +57,29 @@ namespace TrelloBack.Controllers
 
         }
 
+
+        [HttpGet("Commentaires/GetCommentairesByTacheId/{id?}")]
+        public IActionResult GetCommentairesByTacheId(int id)
+        {
+            // Get commentaires from database by tache id
+            try
+            {
+                if (_db.Commentaires == null)
+                {
+                    return NotFound("No commentaires found");
+                }
+
+                var commentaires = _db.Commentaires.Where(c => c.TacheId == id);
+                return Json(commentaires);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+        
+        //Post
         [HttpPost("Commentaires")]
         public IActionResult CreateCommentaire([FromBody] Commentaire commentaire)
         {
@@ -73,8 +96,8 @@ namespace TrelloBack.Controllers
             }
         }
 
+        //Delete
         [HttpDelete("Commentaires/{id}")]
-
         public IActionResult DeleteCommentaire(int id)
         {
             // Delete a commentaire from the database
@@ -95,6 +118,7 @@ namespace TrelloBack.Controllers
             }
         }
 
+        //Put
         [HttpPut("Commentaires/{id}")]
         public IActionResult UpdateCommentaire(int id, [FromBody] Commentaire commentaire)
         {

@@ -57,6 +57,31 @@ namespace TrelloBack.Controllers
 
         }
 
+         [HttpGet("Listes/GetListesByProjetId/{id?}")]
+        public IActionResult GetListesByProjetId(int id)
+        {
+            // Get liste from database
+            try
+            {
+                if (_db.Listes == null)
+                {
+                    return NotFound("No listes found");
+                }
+
+                List<Liste> toGet = _db.Listes.Where(l => l.ProjetId == id).ToList();
+                if (toGet == null)
+                {
+                    return NotFound();
+                }
+                return Json(toGet);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
         [HttpPost("Listes")]
         public IActionResult CreateListes([FromBody] Liste liste)
         {
