@@ -23,9 +23,9 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<Tache> Taches { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlite("Data Source=Database/database.db");
+    public virtual DbSet<User> Users { get; set; }
+
+    
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -53,10 +53,6 @@ public partial class DatabaseContext : DbContext
             entity.ToTable("Liste");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("TIMESTAMP")
-                .HasColumnName("createdAt");
             entity.Property(e => e.Nom)
                 .HasColumnType("VARCHAR(255)")
                 .HasColumnName("nom");
@@ -92,6 +88,10 @@ public partial class DatabaseContext : DbContext
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("TIMESTAMP")
                 .HasColumnName("createdAt");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.EndDate)
+                .HasColumnType("DATE")
+                .HasColumnName("endDate");
             entity.Property(e => e.ListeId)
                 .HasColumnType("INT")
                 .HasColumnName("liste_id");
@@ -102,6 +102,16 @@ public partial class DatabaseContext : DbContext
             entity.HasOne(d => d.Liste).WithMany(p => p.Taches)
                 .HasForeignKey(d => d.ListeId)
                 .OnDelete(DeleteBehavior.Cascade);
+        });
+
+        modelBuilder.Entity<User>(entity =>
+        {
+            entity.ToTable("User");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Nom)
+                .HasColumnType("VARCHAR(255)")
+                .HasColumnName("nom");
         });
 
         OnModelCreatingPartial(modelBuilder);
