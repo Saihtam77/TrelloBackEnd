@@ -1,109 +1,95 @@
 using Microsoft.AspNetCore.Mvc;
 using TrelloBack.Models;
+using TrelloBack.Models.DAO;
 
 namespace TrelloBack.Controllers
 {
     public class ListesController : Controller
     {
 
-        private readonly DatabaseContext _db;
+        private readonly IListeDAO _listeDAO;
 
-        public ListesController(DatabaseContext db)
+        public ListesController(IListeDAO listeDAO)
         {
-            _db = db;
+            _listeDAO = listeDAO;
         }
-
+        
         [HttpGet("Listes")]
-        public IActionResult GetListes()
+        public IActionResult Get()
         {
-            // Get listes from database
             try
             {
-                if (_db.Listes == null)
+                List<Liste> listes = _listeDAO.GetListes();
+                if (listes == null)
                 {
-                    return NotFound();
+                    return NotFound("No listes found.");
                 }
-                return Json(_db.Listes);
-
+                return Json(listes);
             }
-            catch (Exception e)
+            catch
             {
-                return BadRequest(e.Message);
+                return NotFound("Error while getting listes.");
             }
         }
-
         [HttpGet("Listes/{id?}")]
-        public IActionResult GetListes(int id)
+        public IActionResult Get(int id)
         {
-            // Get liste from database
             try
             {
-                if (_db.Listes == null)
+                Liste liste = _listeDAO.GetListeById(id);
+                if (liste == null)
                 {
-                    return NotFound("No listes found");
+                    return NotFound("No liste found.");
                 }
-
-                Liste? toGet = _db.Listes.Find(id);
-                if (toGet == null)
-                {
-                    return NotFound();
-                }
-                return Json(toGet);
+                return Json(liste);
             }
-            catch (Exception e)
+            catch
             {
-                return BadRequest(e.Message);
+                return NotFound("Error while getting liste.");
             }
-
         }
 
-         [HttpGet("Listes/GetListesByProjetId/{id?}")]
+
+        [HttpGet("Listes/GetListesByProjetId/{id?}")]
         public IActionResult GetListesByProjetId(int id)
         {
-            // Get liste from database
             try
             {
-                if (_db.Listes == null)
+                List<Liste> listes = _listeDAO.GetListesByProjetId(id);
+                if (listes == null)
                 {
-                    return NotFound("No listes found");
+                    return NotFound("No listes found.");
                 }
-
-                List<Liste> toGet = _db.Listes.Where(l => l.ProjetId == id).ToList();
-                if (toGet == null)
-                {
-                    return NotFound();
-                }
-                return Json(toGet);
+                return Json(listes);
             }
-            catch (Exception e)
+            catch
             {
-                return BadRequest(e.Message);
+                return NotFound("Error while getting listes.");
             }
 
         }
 
         [HttpPost("Listes")]
-        public IActionResult CreateListes([FromBody] Liste liste)
+        public IActionResult Post([FromBody] Liste liste)
         {
             // Add liste to database
             try
             {
-                if (liste == null)
+                if(liste==null)
                 {
-                    return BadRequest("Liste is null");
+                    return BadRequest("Liste is null.");
                 }
-                _db.Listes.Add(liste);
-                _db.SaveChanges();
+                _listeDAO.AddListe(liste);
                 return Ok();
             }
-            catch (Exception e)
+            catch
             {
-                return BadRequest(e.Message);
+                return BadRequest("Error while adding liste.");
             }
         }
 
         [HttpPut("Listes/{id}")]
-        public IActionResult UpdateListes(int id, [FromBody] Liste liste)
+        public IActionResult Put(int id, [FromBody] Liste liste)
         {
             // Update liste in database
             try
@@ -112,44 +98,34 @@ namespace TrelloBack.Controllers
                 {
                     return BadRequest("Liste is null");
                 }
-                Liste? toUpdate = _db.Listes.Find(id);
-                if (toUpdate == null)
-                {
-                    return NotFound();
-                }
-                toUpdate.Nom = liste.Nom;
-                _db.SaveChanges();
+                
+                liste.Id = id;
+                _listeDAO.UpdateListe(liste);
                 return Ok();
             }
-            catch (Exception e)
+            catch
             {
-                return BadRequest(e.Message);
+                return BadRequest();
             }
+
         }
 
         [HttpDelete("Listes/{id}")]
-        public IActionResult DeleteListes(int id)
+        public IActionResult Delete(int id)
         {
             // Delete liste from database
             try
             {
-                Liste? toDelete = _db.Listes.Find(id);
-                if (toDelete == null)
-                {
-                    return NotFound();
-                }
-                _db.Listes.Remove(toDelete);
-                _db.SaveChanges();
+                Liste liste = _listeDAO.GetListeById(id);
+                _listeDAO.DeleteListe(liste);
                 return Ok();
             }
-            catch (Exception e)
+            catch
             {
-                return BadRequest(e.Message);
+                return NotFound();
             }
+
         }
-
-
-
 
     }
 }

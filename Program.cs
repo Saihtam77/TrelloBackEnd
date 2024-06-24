@@ -1,10 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using TrelloBack.Models;
+using TrelloBack.Models.DAO;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IProjetDAO, ProjetDAO>();
+builder.Services.AddScoped<IListeDAO, ListeDAO>();
+builder.Services.AddScoped<ITacheDAO, TacheDAO>();
+builder.Services.AddScoped<ICommentaireDAO, CommentaireDAO>();
 
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
@@ -19,6 +25,7 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
+
 
 
 var app = builder.Build();

@@ -1,75 +1,65 @@
 using Microsoft.AspNetCore.Mvc;
 using TrelloBack.Models;
+using TrelloBack.Models.DAO;
 
 namespace TrelloBack.Controllers
 {
     public class ProjetsController : Controller
     {
 
-        private readonly DatabaseContext _db;
+        private readonly IProjetDAO _projetDAO;
 
-        public ProjetsController(DatabaseContext db)
+        public ProjetsController(IProjetDAO projetDAO)
         {
-            _db = db;
+            _projetDAO = projetDAO;
         }
 
         [HttpGet("Projets")]
-        public IActionResult GetProjets()
+        public IActionResult Get()
         {
-            // Get projets from database
+            // Get all projets from database
             try
             {
-                if (_db.Projets == null)
-                {
-                    return NotFound();
-                }
-                return Json(_db.Projets);
-
+                return Json(_projetDAO.GetProjets());
             }
-            catch (Exception e)
+            catch
             {
-                return BadRequest(e.Message);
+                return NotFound("No projets found.");
             }
 
 
         }
         [HttpGet("Projets/{id}")]
-        public IActionResult GetProjets(int id)
+        public IActionResult Get(int id)
         {
-            // Get projet from database
+            // Get projet by id from database
             try
             {
-                if (_db.Projets == null)
+                Projet projet = _projetDAO.GetProjetById(id);
+                if (projet == null)
                 {
-                    return NotFound("No projets found");
+                    return NotFound("No projet found.");
                 }
-
-                Projet? toGet = _db.Projets.Find(id);
-                if (toGet == null)
-                {
-                    return NotFound();
-                }
-                return Json(toGet);
+                return Json(projet);
             }
-            catch (Exception e)
+            catch
             {
-                return BadRequest(e.Message);
+                return NotFound("Error while getting projet.");
             }
 
         }
 
         [HttpPost("Projets")]
-        public IActionResult CreateProjet([FromBody] Projet toCreate)
+        public IActionResult Post([FromBody] Projet toCreate)
         {
-            // Create projet in database
+            // Add projet to database
             try
             {
                 if (toCreate == null)
                 {
                     return BadRequest("Projet is null");
                 }
-                _db.Projets.Add(toCreate);
-                _db.SaveChanges();
+                _projetDAO.AddProjet(toCreate);
                 return Json(toCreate);
             }
             catch (Exception e)
@@ -79,25 +69,22 @@ namespace TrelloBack.Controllers
         }
 
         [HttpPut("Projets/{id}")]
-        public IActionResult UpdateProjet([FromBody] Projet projet, int id)
+        public IActionResult Put([FromBody] Projet projet, int id)
         {
             // Update projet in database
             try
             {
                 if (projet == null)
                 {
-                    return BadRequest("Projet is null or projet id doesn't match");
+                    return BadRequest("Projet is null");
                 }
-
-                Projet? toUpdate = _db.Projets.Find(id);
+                Projet? toUpdate = _projetDAO.GetProjetById(id);
                 if (toUpdate == null)
                 {
                     return NotFound();
                 }
                 toUpdate.Nom = projet.Nom;
-
-                _db.Projets.Update(toUpdate);
-                _db.SaveChanges();
+                _projetDAO.UpdateProjet(toUpdate);
                 return Json(toUpdate);
             }
             catch (Exception e)
@@ -107,18 +94,17 @@ namespace TrelloBack.Controllers
         }
 
         [HttpDelete("Projets/{id}")]
-        public IActionResult DeleteProjet(int id)
+        public IActionResult Delete(int id)
         {
             // Delete projet from database
             try
             {
-                Projet? toDelete = _db.Projets.Find(id);
+                Projet? toDelete = _projetDAO.GetProjetById(id);
                 if (toDelete == null)
                 {
                     return NotFound();
                 }
-                _db.Projets.Remove(toDelete);
-                _db.SaveChanges();
+                _projetDAO.DeleteProjet(toDelete);
                 return Json(toDelete);
             }
             catch (Exception e)
@@ -126,9 +112,6 @@ namespace TrelloBack.Controllers
                 return BadRequest(e.Message);
             }
         }
-
-
-
 
 
     }

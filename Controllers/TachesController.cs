@@ -1,29 +1,26 @@
 using Microsoft.AspNetCore.Mvc;
 using TrelloBack.Models;
+using TrelloBack.Models.DAO;
 
 namespace TrelloBack.Controllers
 {
     public class TachesController : Controller
     {
-        private readonly DatabaseContext _db;
+        private readonly ITacheDAO _tacheDAO;
 
-        public TachesController(DatabaseContext db)
+        public TachesController(ITacheDAO tacheDAO)
         {
-            _db = db;
+            _tacheDAO = tacheDAO;
         }
+
 
         [HttpGet("Taches")]
         public IActionResult GetTaches()
         {
-            // Get taches from database
+            // Get all taches from database
             try
             {
-                if (_db.Taches == null)
-                {
-                    return NotFound();
-                }
-                return Json(_db.Taches);
-
+                return Json(_tacheDAO.GetTaches());
             }
             catch (Exception e)
             {
@@ -34,20 +31,15 @@ namespace TrelloBack.Controllers
         [HttpGet("Taches/{id?}")]
         public IActionResult GetTaches(int id)
         {
-            // Get tache from database
+            // Get tache from database by id
             try
             {
-                if (_db.Taches == null)
-                {
-                    return NotFound("No taches found");
-                }
-
-                Tache? toGet = _db.Taches.Find(id);
-                if (toGet == null)
+                Tache tache = _tacheDAO.GetTacheById(id);
+                if (tache == null)
                 {
                     return NotFound();
                 }
-                return Json(toGet);
+                return Json(tache);
             }
             catch (Exception e)
             {
@@ -62,13 +54,7 @@ namespace TrelloBack.Controllers
             // Get taches from database by liste id
             try
             {
-                if (_db.Taches == null)
-                {
-                    return NotFound("No taches found");
-                }
-
-                var taches = _db.Taches.Where(t => t.ListeId == id);
-                return Json(taches);
+                return Json(_tacheDAO.GetTachesByListeId(id));
             }
             catch (Exception e)
             {
@@ -83,8 +69,7 @@ namespace TrelloBack.Controllers
             // Add tache to database
             try
             {
-                _db.Taches.Add(tache);
-                _db.SaveChanges();
+                _tacheDAO.AddTache(tache);
                 return Json(tache);
             }
             catch (Exception e)
@@ -99,14 +84,14 @@ namespace TrelloBack.Controllers
             // Update tache in database
             try
             {
-                Tache? toUpdate = _db.Taches.Find(id);
+                Tache? toUpdate = _tacheDAO.GetTacheById(id);
                 if (toUpdate == null)
                 {
                     return NotFound();
                 }
                 toUpdate.Nom = tache.Nom;
 
-                _db.SaveChanges();
+                _tacheDAO.UpdateTache(toUpdate);
                 return Json(toUpdate);
             }
             catch (Exception e)
@@ -121,13 +106,12 @@ namespace TrelloBack.Controllers
             // Delete tache from database
             try
             {
-                Tache? toDelete = _db.Taches.Find(id);
+                Tache? toDelete = _tacheDAO.GetTacheById(id);
                 if (toDelete == null)
                 {
                     return NotFound();
                 }
-                _db.Taches.Remove(toDelete);
-                _db.SaveChanges();
+                _tacheDAO.DeleteTache(toDelete);
                 return Json(toDelete);
             }
             catch (Exception e)

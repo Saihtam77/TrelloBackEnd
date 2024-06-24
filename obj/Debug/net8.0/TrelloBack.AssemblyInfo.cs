@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TrelloBack")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c1b571867e6ba8ecb4507f959e5cd316c45c90fa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ab100236a2225a4f6c46dc1d91cf0523ee65bee0")]
 [assembly: System.Reflection.AssemblyProductAttribute("TrelloBack")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TrelloBack")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
