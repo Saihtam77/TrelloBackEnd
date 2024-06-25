@@ -36,8 +36,8 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Contenu).HasColumnName("contenu");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("TIMESTAMP")
+                .HasDefaultValueSql("GETDATE()")
+                .HasColumnType("datetime")
                 .HasColumnName("createdAt");
             entity.Property(e => e.TacheId)
                 .HasColumnType("INT")
@@ -71,9 +71,10 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("TIMESTAMP")
+               .HasDefaultValueSql("GETDATE()")
+                .HasColumnType("datetime")
                 .HasColumnName("createdAt");
+                
             entity.Property(e => e.Nom)
                 .HasColumnType("VARCHAR(255)")
                 .HasColumnName("nom");
@@ -85,8 +86,8 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnType("TIMESTAMP")
+                .HasDefaultValueSql("GETDATE()")
+                .HasColumnType("datetime")
                 .HasColumnName("createdAt");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.EndDate)
