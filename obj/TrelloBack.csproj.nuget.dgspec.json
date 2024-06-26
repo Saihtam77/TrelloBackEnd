@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ib\\Documents\\Dev\\Projet FileRouge\\TrelloBack\\TrelloBack.csproj": {}
+    "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\TrelloBackEnd\\TrelloBack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ib\\Documents\\Dev\\Projet FileRouge\\TrelloBack\\TrelloBack.csproj": {
+    "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\TrelloBackEnd\\TrelloBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ib\\Documents\\Dev\\Projet FileRouge\\TrelloBack\\TrelloBack.csproj",
+        "projectUniqueName": "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\TrelloBackEnd\\TrelloBack.csproj",
         "projectName": "TrelloBack",
-        "projectPath": "C:\\Users\\ib\\Documents\\Dev\\Projet FileRouge\\TrelloBack\\TrelloBack.csproj",
+        "projectPath": "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\TrelloBackEnd\\TrelloBack.csproj",
         "packagesPath": "C:\\Users\\ib\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ib\\Documents\\Dev\\Projet FileRouge\\TrelloBack\\obj\\",
+        "outputPath": "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\TrelloBackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ib\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -14,7 +14,7 @@ builder.Services.AddScoped<ICommentaireDAO, CommentaireDAO>();
 
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
-    options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServerConnection"));
+    options.UseSqlite("Defaultconnection");
 });
 builder.Services.AddCors(options =>
 {

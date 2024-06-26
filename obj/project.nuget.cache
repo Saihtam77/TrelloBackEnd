@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TBY7QrGEGv0=",
+  "dgSpecHash": "YyQF+5EO0xA=",
   "success": true,
-  "projectFilePath": "C:\\Users\\ib\\Documents\\Dev\\Projet FileRouge\\TrelloBack\\TrelloBack.csproj",
+  "projectFilePath": "C:\\Users\\ib\\Documents\\DEV\\Projet FileRouge\\TrelloBackEnd\\TrelloBack.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ib\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ib\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

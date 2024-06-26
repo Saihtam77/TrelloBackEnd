@@ -25,8 +25,6 @@ public partial class DatabaseContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
-    
-
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Commentaire>(entity =>
@@ -36,8 +34,8 @@ public partial class DatabaseContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Contenu).HasColumnName("contenu");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("GETDATE()")
-                .HasColumnType("datetime")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("TIMESTAMP")
                 .HasColumnName("createdAt");
             entity.Property(e => e.TacheId)
                 .HasColumnType("INT")
@@ -71,10 +69,9 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-               .HasDefaultValueSql("GETDATE()")
-                .HasColumnType("datetime")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("TIMESTAMP")
                 .HasColumnName("createdAt");
-                
             entity.Property(e => e.Nom)
                 .HasColumnType("VARCHAR(255)")
                 .HasColumnName("nom");
@@ -86,8 +83,8 @@ public partial class DatabaseContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("GETDATE()")
-                .HasColumnType("datetime")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("TIMESTAMP")
                 .HasColumnName("createdAt");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.EndDate)
