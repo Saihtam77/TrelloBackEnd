@@ -14,7 +14,7 @@ builder.Services.AddScoped<ICommentaireDAO, CommentaireDAO>();
 
 builder.Services.AddDbContext<DatabaseContext>(options =>
 {
-    options.UseSqlite("Defaultconnection");
+    options.UseSqlite("Data Source=Database/database.db");
 });
 builder.Services.AddCors(options =>
 {
