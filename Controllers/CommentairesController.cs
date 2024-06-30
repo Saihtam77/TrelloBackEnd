@@ -54,8 +54,8 @@ namespace TrelloBack.Controllers
         }
 
 
-        [HttpGet("Commentaires/GetCommentairesByTacheId/{id?}")]
-        public IActionResult GetCommentairesByTacheId(int id)
+        [HttpGet("Commentaires/GetCommentsTaches/{id?}")]
+        public IActionResult GetCommentsTaches(int id)
         {
             try
             {
