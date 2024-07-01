@@ -50,8 +50,8 @@ namespace TrelloBack.Controllers
         }
 
 
-        [HttpGet("Listes/GetListesByProjetId/{id?}")]
-        public IActionResult GetListesByProjetId(int id)
+        [HttpGet("Listes/GetProjetListes/{id?}")]
+        public IActionResult GetProjetListes(int id)
         {
             try
             {

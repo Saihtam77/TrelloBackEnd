@@ -48,8 +48,8 @@ namespace TrelloBack.Controllers
 
         }
 
-        [HttpGet("Taches/GetTachesByListeId/{id?}")]
-        public IActionResult GetTachesByListeId(int id)
+        [HttpGet("Taches/GetTachesListes/{id?}")]
+        public IActionResult GetTachesListes(int id)
         {
             // Get taches from database by liste id
             try
